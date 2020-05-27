@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 8000
 
-app.use(parser)
+//app.use(parser)
 
 app.get('/', async(req, res)=>{
 	let result = {
