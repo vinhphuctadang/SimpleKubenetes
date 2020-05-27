@@ -1,0 +1,37 @@
+---
+# Run built node app hello-kube with 3 replica
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kube-deployment
+  labels:
+    app: hello-kube
+spec:
+  replicas: 3 # 3 replica of this 'pod'
+  selector:
+    matchLabels: # node selection rule: if label name == 'simple-kube', then 'choose' it
+      app: hello-kube
+  template:
+    metadata:
+      labels:
+        app: hello-kube
+    spec:
+      containers:
+      - name: hello-kube
+        image: hello-kube:latest # image is in local
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kube-service
+spec:
+  selector:
+    app: hello-kube
+  ports:
+  - protocol: TCP
+    port: 8080 # port that is 'exposed', choose 8080 to see differeneces
+    targetPort: 8000 # port that is targeted to (Pod's port)
