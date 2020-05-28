@@ -21,7 +21,7 @@ spec:
         image: hello-kube:latest # image is in local
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8000
+        - containerPort: 8000 # port 'inside' container
 
 ---
 apiVersion: v1
@@ -29,6 +29,7 @@ kind: Service
 metadata:
   name: hello-kube-service
 spec:
+  type: ClusterIP
   selector:
     app: hello-kube
   ports:

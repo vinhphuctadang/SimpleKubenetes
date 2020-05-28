@@ -9,18 +9,39 @@ build(){
 }
 
 start(){
-  kubectl create namespace myserver
-  kubectl create -f deploy.yaml -n myserver
+  kubectl apply namespace myserver
+  kubectl apply -f deploy.yaml -n myserver
   # kubectl port-forward -n myserver deployment/hello-kube-deployment 8000:8000 # this development will be 'visible' to localhost:8000, but not int the 'cluster'
   # kubectl port-forward -n myserver service/hello-kube-service 8888:8080 # the service makes made our application 'visible' inside cluster
   # now leverage the ingress to make our application 'visible' outside the cluster
-  
+  kubectl apply -f ingress.yaml -n myserver
 }
 
 stop(){
   kubectl delete -f deploy.yaml -n myserver
+  kubectl delete -f ingress.yaml -n myserver
   kubectl delete namespace myserver
 }
 
+CMD=$1
 
-build
+case $CMD in
+  "build")
+    echo "Dockerizing server..."
+    build
+    ;;
+
+  "start")
+    echo "Starting components..."
+    start
+    ;;
+
+  "stop")
+    echo "Stoping components..."
+    stop
+    ;;
+
+  *)
+    echo "unknown command"
+    ;;
+esac
