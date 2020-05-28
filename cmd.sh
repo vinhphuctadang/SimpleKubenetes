@@ -9,7 +9,7 @@ build(){
 }
 
 start(){
-  kubectl apply namespace myserver
+  kubectl create namespace myserver
   kubectl apply -f deploy.yaml -n myserver
   # kubectl port-forward -n myserver deployment/hello-kube-deployment 8000:8000 # this development will be 'visible' to localhost:8000, but not int the 'cluster'
   # kubectl port-forward -n myserver service/hello-kube-service 8888:8080 # the service makes made our application 'visible' inside cluster
