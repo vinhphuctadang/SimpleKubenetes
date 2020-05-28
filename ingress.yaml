@@ -11,4 +11,4 @@ spec:
         pathType: Prefix
         backend:
           serviceName: hello-kube-service
-          servicePort: 8080
+          servicePort: 80

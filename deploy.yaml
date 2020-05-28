@@ -30,9 +30,9 @@ metadata:
   name: hello-kube-service
 spec:
   type: ClusterIP
-  selector:
+  selector: 
     app: hello-kube
   ports:
   - protocol: TCP
-    port: 8080 # port that is 'exposed', choose 8080 to see differeneces
+    port: 80 # port that is 'exposed', choose 80 to see differeneces
     targetPort: 8000 # port that is targeted to (Pod's port)
